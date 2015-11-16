@@ -56,6 +56,16 @@ exports.config = {
       ignore: [/web\/static\/vendor/]
     }
   },
+  elmBrunch: {
+    // Set to path where elm-package.json is located, defaults to project root (optional)
+    // if your elm files are not in /app then make sure to configure paths.watched in main brunch config
+    elmFolder: 'web/elm',
+    // Set to the elm file(s) containing your "main" function
+    // `elm make` handles all elm dependencies (required)
+    mainModules: ['web/elm/Main.elm'],
+    // Defaults to 'js/' folder in paths.public (optional)
+    outputFolder: 'web/static'
+  },
 
   modules: {
     autoRequire: {

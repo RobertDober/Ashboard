@@ -10,7 +10,7 @@ defmodule Ashboard.User do
     timestamps
   end
 
-  @required_fields ~w(name username password_hash)
+  @required_fields ~w(name username password)
   @optional_fields ~w()
 
   @doc """
@@ -22,5 +22,36 @@ defmodule Ashboard.User do
   def changeset(model, params \\ :empty) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> validate_length(:username, min: 2, max: 64)
+    |> check_pass()
+    |> put_pass_hash()
+  end
+
+  def registration_changeset(model, params) do
+    model
+    |> changeset( params )
+    |> cast(params, @required_fields, @optional_fields)
+    |> validate_length(:username, min: 2, max: 64)
+    |> check_pass()
+    |> put_pass_hash()
+  end
+
+  defp check_pass( changeset ) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{password: pass, password_confirmation: pass}} ->
+        changeset
+      _ ->
+        put_change( changeset, :valid?, false )
+    end
+  end
+
+  defp put_pass_hash( changeset ) do
+    case changeset do
+      %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
+        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
+      _ -> 
+        changeset
+    end
+
   end
 end

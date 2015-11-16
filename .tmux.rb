@@ -21,6 +21,7 @@ end
 new_session "Ashboard" do
   vi colorscheme: :morning
   vi 'web', colorscheme: :solarized, cmds: ['set background=dark']
+  vi 'web/elm', colorscheme: :github
   new_window 'test'
   vi 'test', colorscheme: 'solarized'
     # wait_for "up a dir" do   # 2B replaced by wait_for_NERDTree
@@ -34,6 +35,9 @@ new_session "Ashboard" do
   end
   new_window 'server' do
     send_keys 'iex -S mix phoenix.server'
+  end
+  new_window 'elm-console' do
+    send_keys 'elm-repl'
   end
   new_window 'etc'
   command 'select-window -t :0'

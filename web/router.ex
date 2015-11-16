@@ -19,8 +19,8 @@ defmodule Ashboard.Router do
 
     get "/", PageController, :index
 
-    get "/users", UserController, :index
-    get "/users/:id", UserController, :show
+    resources "/users", UserController
+    # get "/users/:id", UserController, :show
   end
 
   # Other scopes may use custom stacks.
