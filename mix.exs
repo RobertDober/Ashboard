@@ -35,6 +35,8 @@ defmodule Ashboard.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.1"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
+     {:earmark, "~> 0.1", only: :dev},
+     {:ex_doc, "~> 0.10", only: :dev},
      {:cowboy, "~> 1.0"},
      {:comeonin, "~> 1.5"},
      {:dogma, "~> 0.0", only: :dev }]
